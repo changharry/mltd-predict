@@ -1,9 +1,10 @@
+import time
 import numpy as np
 from sklearn.linear_model import LinearRegression
 import requests
 from datetime import datetime
 import json
-import matplotlib.pyplot as plt
+
 
 # crontab task
 event_id = 241
@@ -42,6 +43,7 @@ for k in range(52):
                 "scatter": scatter}
         regression.append(last)
     regression_all.append(regression)
+    time.sleep(0.5)
 result = {"meta": meta, "regression_all": regression_all}
 with open('../data/data.json', 'w') as f:
     json.dump(result, f)
