@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ para[0] }}</title>
+    <link href="../static/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<script src="../static/bootstrap.bundle.min.js"></script>
+<script src="../static/chart.min.js"></script>
+
+<div>
+    <a href="/" style="margin-left: 2.5%">Back</a>
+</div>
+
+<div class="d-flex justify-content-center">
+    <h1>
+        {{ para[3]['name'] }}
+    </h1>
+</div>
+
+<div class="d-flex justify-content-center">
+    <h3>
+        {{ para[1][0]['latestTime'] }}
+    </h3>
+</div>
+
+<div style="text-align: center; margin: 1%">
+    <h2>
+        {{ para[0] }}
+    </h2>
+</div>
+
+<div class="d-flex justify-content-center" style="margin-top: 2.5%">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">#10</h5>
+            <h6 class="card-subtitle mb-2 text-muted">現在:{{ para[1][0]['latestScore'] |round|int}}</h6>
+            <p class="card-text">最終予想:
+                <br>
+                <span style="font-size: xxx-large">{{ para[1][0]['prediction'] }}</span>
+            </p>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">#100</h5>
+            <h6 class="card-subtitle mb-2 text-muted">現在:{{ para[1][1]['latestScore'] |round|int}}</h6>
+            <p class="card-text">最終予想:
+                <br>
+                <span style="font-size: xxx-large">{{ para[1][1]['prediction'] }}</span>
+            </p>
+        </div>
+    </div>
+    {% if para[2] == 3 %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">#1000</h5>
+            <h6 class="card-subtitle mb-2 text-muted">現在:{{ para[1][2]['latestScore'] |round|int}}</h6>
+            <p class="card-text">最終予想:
+                <br>
+                <span style="font-size: xxx-large">{{ para[1][2]['prediction'] }}</span>
+            </p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div class="d-flex justify-content-center" style="margin-top: 1%; margin-bottom: 1%">
+    <h3>
+        残り{{ para[1][0]['remain']  }}日
+    </h3>
+</div>
+<div class="d-flex justify-content-center" style="width:50%;height:50%;display:block;margin:0 auto">
+    <canvas id="myChart"></canvas>
+</div>
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        labels: {{ para[1][0]['scatter']['x']}},
+        datasets: [{
+            label: '#10',
+            data: {{ para[1][0]['scatter']['y']}},
+            backgroundColor: [
+                'rgb(99,174,255)'
+            ],
+            borderWidth: 1
+        },
+        {
+            label: '#100',
+            data: {{ para[1][1]['scatter']['y']}},
+            backgroundColor: [
+                'rgb(255, 99, 132)'
+            ],
+            borderWidth: 1
+        }{% if para[2] == 3 %}
+        ,
+        {
+            label: '#1000',
+            data: {{ para[1][2]['scatter']['y']}},
+            backgroundColor: [
+                'rgb(255,252,99)'
+            ],
+            borderWidth: 1
+        }
+            {% endif %}]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+<footer style="text-align: center">
+    <p>Data collected from <a href="https://api.matsurihi.me/docs/">matsurihi.me</a> </p>
+    <p>Prediction model: Simple Linear Regression</p>
+    <p><a href="mailto:admin@imas-mltd.com">Contact Admin</a></p>
+</footer>
+</body>
+</html>
