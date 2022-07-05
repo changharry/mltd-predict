@@ -45,7 +45,7 @@ for k in range(52):
     regression_all.append(regression)
     time.sleep(0.5)
 result = {"meta": meta, "regression_all": regression_all}
-with open('../data/data.json', 'w') as f:
+with open('./data/data.json', 'w') as f:
     json.dump(result, f)
 
 # plt.scatter(x, y, s=1)
