@@ -78,10 +78,10 @@ const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'scatter',
     data: {
-        labels: {{ para[1][0]['scatter']['x']}},
+        labels: {{ para[1][0]['scatter']['x'] }},
         datasets: [{
             label: '#10',
-            data: {{ para[1][0]['scatter']['y']}},
+            data: filter({{ para[1][0]['scatter'] |safe }}),
             backgroundColor: [
                 'rgb(99,174,255)'
             ],
@@ -89,7 +89,7 @@ const myChart = new Chart(ctx, {
         },
         {
             label: '#100',
-            data: {{ para[1][1]['scatter']['y']}},
+            data: filter({{ para[1][1]['scatter'] |safe }}),
             backgroundColor: [
                 'rgb(255, 99, 132)'
             ],
@@ -98,7 +98,7 @@ const myChart = new Chart(ctx, {
         ,
         {
             label: '#1000',
-            data: {{ para[1][2]['scatter']['y']}},
+            data: filter({{ para[1][2]['scatter'] |safe }}),
             backgroundColor: [
                 'rgb(255,252,99)'
             ],
@@ -114,6 +114,16 @@ const myChart = new Chart(ctx, {
         }
     }
 });
+
+function filter(scatter) {
+    const dataset = [];
+    for (let i = 0; i < scatter['x'].length; i++) {
+        dataset.push({'x': scatter['x'][i], 'y': scatter['y'][i]})
+    }
+    return dataset
+}
+
+
 </script>
 <footer style="text-align: center">
     <p>Data collected from <a href="https://api.matsurihi.me/docs/">matsurihi.me</a> </p>

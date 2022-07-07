@@ -22,7 +22,7 @@ def idol(idol_id):
         if data["meta"]["type"] == 5:
             reg = data["regression_all"][int(idol_id) - 1]
             meta = data["meta"]
-            return render_template('idol.html', para=[idol_dict[int(idol_id)-1], reg, len(reg), meta])
+            return render_template('idol.html', para=[idol_dict[int(idol_id) - 1], reg, len(reg), meta])
         else:
             return "null"
 
