@@ -12,7 +12,9 @@ def index():
         if data["meta"]["type"] == 5:
             return render_template('anniversary.html')
         else:
-            return "null"
+            reg = data["regression"]
+            meta = data["meta"]
+            return render_template('default.html', para=[reg, meta, len(reg)])
 
 
 @app.route('/idol/<idol_id>')

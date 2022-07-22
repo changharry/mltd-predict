@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ para[1]['name'] }}</title>
+    <link href="../static/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<script src="../static/bootstrap.bundle.min.js"></script>
+<script src="../static/chart.min.js"></script>
+
+<div>
+    <a href="/" style="margin-left: 2.5%">Back</a>
+</div>
+
+<div class="d-flex justify-content-center">
+    <h1>
+        {{ para[1]['name'] }}
+    </h1>
+</div>
+
+<div class="d-flex justify-content-center">
+    <h3>
+        {{ para[0][0]['latestTime'] }}
+    </h3>
+</div>
+
+<div class="d-flex justify-content-center" style="margin-top: 1%">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">#100</h5>
+            <h6 class="card-subtitle mb-2 text-muted">現在:{{ para[0][0]['latestScore'] |round|int}}</h6>
+            <p class="card-text">最終予想:
+                <br>
+                <span style="font-size: xxx-large">{{ para[0][0]['prediction'] }}</span>
+            </p>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">#2500</h5>
+            <h6 class="card-subtitle mb-2 text-muted">現在:{{ para[0][1]['latestScore'] |round|int}}</h6>
+            <p class="card-text">最終予想:
+                <br>
+                <span style="font-size: xxx-large">{{ para[0][1]['prediction'] }}</span>
+            </p>
+        </div>
+    </div>
+    {% if para[2] >= 3 %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">#5000</h5>
+            <h6 class="card-subtitle mb-2 text-muted">現在:{{ para[0][2]['latestScore'] |round|int}}</h6>
+            <p class="card-text">最終予想:
+                <br>
+                <span style="font-size: xxx-large">{{ para[0][2]['prediction'] }}</span>
+            </p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div class="justify-content-center d-flex" style="margin-top: 0.1%">
+        {% if para[2] >= 4 %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">#10000</h5>
+            <h6 class="card-subtitle mb-2 text-muted">現在:{{ para[0][3]['latestScore'] |round|int}}</h6>
+            <p class="card-text">最終予想:
+                <br>
+                <span style="font-size: xxx-large">{{ para[0][3]['prediction'] }}</span>
+            </p>
+        </div>
+    </div>
+    {% endif %}
+    {% if para[2] >= 5 %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">#25000</h5>
+            <h6 class="card-subtitle mb-2 text-muted">現在:{{ para[0][4]['latestScore'] |round|int}}</h6>
+            <p class="card-text">最終予想:
+                <br>
+                <span style="font-size: xxx-large">{{ para[0][4]['prediction'] }}</span>
+            </p>
+        </div>
+    </div>
+    {% endif %}
+    {% if para[2] >= 6 %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">#50000</h5>
+            <h6 class="card-subtitle mb-2 text-muted">現在:{{ para[0][5]['latestScore'] |round|int}}</h6>
+            <p class="card-text">最終予想:
+                <br>
+                <span style="font-size: xxx-large">{{ para[0][5]['prediction'] }}</span>
+            </p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div class="d-flex justify-content-center" style="margin-top: 0.5%">
+    <h3>
+        残り{{ para[0][0]['remain']  }}日
+    </h3>
+</div>
+<div class="d-flex justify-content-center" style="width:50%;height:50%;display:block;margin:0 auto">
+    <canvas id="myChart"></canvas>
+</div>
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        labels: {{ para[0][0]['scatter']['x'] }},
+        datasets: [{
+            label: '#100',
+            data: filter({{ para[0][0]['scatter'] |safe }}),
+            backgroundColor: [
+                'rgb(99,174,255)'
+            ],
+            borderWidth: 1
+        },
+        {
+            label: '#2500',
+            data: filter({{ para[0][1]['scatter'] |safe }}),
+            backgroundColor: [
+                'rgb(255,99,146)'
+            ],
+            borderWidth: 1
+        }{% if para[2] >= 3 %}
+        ,
+        {
+            label: '#5000',
+            data: filter({{ para[0][2]['scatter'] |safe }}),
+            backgroundColor: [
+                'rgb(255,252,99)'
+            ],
+            borderWidth: 1
+        }
+            {% endif %}
+        {% if para[2] >= 4 %}
+        ,
+        {
+            label: '#10000',
+            data: filter({{ para[0][3]['scatter'] |safe }}),
+            backgroundColor: [
+                'rgb(109,255,99)'
+            ],
+            borderWidth: 1
+        }
+            {% endif %}
+        {% if para[2] >= 5 %}
+        ,
+        {
+            label: '#25000',
+            data: filter({{ para[0][4]['scatter'] |safe }}),
+            backgroundColor: [
+                'rgb(193,99,255)'
+            ],
+            borderWidth: 1
+        }
+            {% endif %}
+        {% if para[2] >= 6 %}
+        ,
+        {
+            label: '#50000',
+            data: filter({{ para[0][5]['scatter'] |safe }}),
+            backgroundColor: [
+                'rgb(255,141,99)'
+            ],
+            borderWidth: 1
+        }
+            {% endif %}
+        ]
+
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: false
+            }
+        }
+    }
+});
+
+function filter(scatter) {
+    const dataset = [];
+    for (let i = 0; i < scatter['x'].length; i++) {
+        dataset.push({'x': scatter['x'][i], 'y': scatter['y'][i]})
+    }
+    return dataset
+}
+
+</script>
+<footer style="text-align: center">
+    <p>Data collected from <a href="https://api.matsurihi.me/docs/">matsurihi.me</a> </p>
+    <p>Prediction model: Simple Linear Regression</p>
+    <p><a href="mailto:admin@imas-mltd.com">Contact Admin</a></p>
+</footer>
+</body>
+</html>
