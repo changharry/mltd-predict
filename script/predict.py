@@ -17,7 +17,7 @@ meta = {"name": mr["name"], "type": mr["type"]}
 err =  duration
 error_coef = 1.1
 
-endpoint = "https://api.matsurihi.me/mltd/v1/events/{}/rankings/logs/eventPoint/100,2500,5000,10000,250000,50000".format(event_id)
+endpoint = "https://api.matsurihi.me/mltd/v1/events/{}/rankings/logs/eventPoint/100,2500,5000,10000,25000,50000".format(event_id)
 r = requests.get(url=endpoint)
 data = r.json()
 regression = []
@@ -44,7 +44,7 @@ for j in range(len(data)):
     regression.append(last)
 time.sleep(0.5)
 result = {"meta": meta, "regression": regression}
-with open('./data/data.json', 'w') as f:
+with open('../data/data.json', 'w') as f:
     json.dump(result, f)
 
 # plt.scatter(x, y, s=1)
