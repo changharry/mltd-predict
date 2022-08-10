@@ -15,7 +15,7 @@ end_timestamp = datetime.timestamp(datetime.fromisoformat(end))
 duration = (end_timestamp - start_timestamp) / 3600 / 24
 meta = {"name": mr["name"], "type": mr["type"]}
 err =  duration
-error_coef = 1.1
+error_coef = 1.35
 
 endpoint = "https://api.matsurihi.me/mltd/v1/events/{}/rankings/logs/eventPoint/100,2500,5000,10000,25000,50000".format(event_id)
 r = requests.get(url=endpoint)
