@@ -6,7 +6,7 @@ from datetime import datetime
 import json
 
 # crontab task
-event_id = 245
+event_id = 247
 mr = requests.get(url="https://api.matsurihi.me/mltd/v1/events/{}".format(event_id)).json()
 start = mr["schedule"]["beginDate"]
 end = mr["schedule"]["endDate"]
@@ -15,7 +15,7 @@ end_timestamp = datetime.timestamp(datetime.fromisoformat(end))
 duration = (end_timestamp - start_timestamp) / 3600 / 24
 meta = {"name": mr["name"], "type": mr["type"]}
 err = duration
-error_coef = 1.25
+error_coef = 1.3
 
 endpoint = "https://api.matsurihi.me/mltd/v1/events/{}/rankings/logs/eventPoint/100,2500,5000,10000,25000,50000".format(
     event_id)
