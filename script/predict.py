@@ -45,7 +45,7 @@ for j in range(len(data)):
     regression.append(last)
 time.sleep(0.5)
 result = {"meta": meta, "regression": regression}
-with open('./data/data.json', 'w') as f:
+with open('../data/data.json', 'w') as f:
     json.dump(result, f)
 
 # plt.scatter(x, y, s=1)
