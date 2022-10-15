@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ミリシタ ボーダー予想</title>
-    <link href="../static/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BZVD0PX4BJ"></script>
@@ -15,8 +15,8 @@
   gtag('config', 'G-BZVD0PX4BJ');
 </script>
 <body>
-<script src="../static/bootstrap.bundle.min.js"></script>
-<script src="../static/chart.min.js"></script>
+<script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='chart.min.js') }}"></script>
 
 <div class="d-flex justify-content-center">
     <h1>
