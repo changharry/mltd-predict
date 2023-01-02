@@ -25,6 +25,8 @@ regression = []
 for j in range(len(data)):
     x = []
     y = []
+    if len(data[j]['data']) == 0:
+        continue
     for i in data[j]['data']:
         days = (datetime.timestamp(datetime.fromisoformat(i['summaryTime'])) - start_timestamp) / 3600 / 24
         y.append(i['score'])
