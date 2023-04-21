@@ -6,7 +6,7 @@ from datetime import datetime
 import json
 
 # crontab task
-event_id = 278
+event_id = 280
 mr = requests.get(url="https://api.matsurihi.me/mltd/v1/events/{}".format(event_id)).json()
 start = mr["schedule"]["beginDate"]
 end = mr["schedule"]["endDate"]
