@@ -75,6 +75,8 @@ for k in range(52):
     data = r.json()
     regression = []
     for j in range(len(data)):
+        if len(data[j]['data']) == 0:
+            break
         x = []
         y = []
         for i in data[j]['data']:
