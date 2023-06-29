@@ -9,7 +9,7 @@ from app import app
 def index():
     with open('data/data.json') as f:
         data = json.load(f)
-        if data["meta"]["type"] == 5:
+        if data["meta"]["type"] == 4:
             return render_template('anniversary.html')
         else:
             reg = data["regression"]
