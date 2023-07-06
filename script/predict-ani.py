@@ -104,6 +104,3 @@ result = {"meta": meta, "regression_all": regression_all}
 with open('./data/data.json', 'w') as f:
     json.dump(result, f)
 
-# plt.scatter(x, y, s=1)
-# plt.plot(x, model.predict(x0), c='r')
-# plt.show()
