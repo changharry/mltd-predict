@@ -6,6 +6,7 @@ from datetime import datetime
 import json
 
 # crontab task
+# 10,40 * * * * cd mltd-predict && venv/bin/python script/predict.py
 event_id = 296
 mr = requests.get(url="https://api.matsurihi.me/mltd/v1/events/{}".format(event_id)).json()
 start = mr["schedule"]["beginDate"]
