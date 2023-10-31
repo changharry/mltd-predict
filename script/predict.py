@@ -23,6 +23,7 @@ endpoint = "https://api.matsurihi.me/mltd/v1/events/{}/rankings/logs/eventPoint/
 r = requests.get(url=endpoint)
 data = r.json()
 regression = []
+
 for j in range(len(data)):
     x = []
     y = []
